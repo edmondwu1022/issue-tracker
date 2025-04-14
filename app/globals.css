@@ -16,3 +16,7 @@
 body {
     color: rgb(var(--foreground-rgb));
 }
+
+main {
+    padding-left: 20px;
+}

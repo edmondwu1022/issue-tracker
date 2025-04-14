@@ -1,0 +1,8 @@
+.textDiv {
+    width: calc(100% - 2rem);
+    max-width: 30rem;
+    position: relative;
+}
+.spaceBetween {
+    margin-bottom: 1rem;
+}
