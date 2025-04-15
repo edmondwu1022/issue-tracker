@@ -1,0 +1,16 @@
+@media (width >= 48rem) {
+    .tableCellDisplay {
+        display: table-cell;
+    }
+    .mdInfoDisplay {
+        display: none;
+    }
+}
+@media (width < 48rem) {
+    .tableCellDisplay {
+        display: none;
+    }
+    .mdInfoDisplay {
+        display: block;
+    }
+}
