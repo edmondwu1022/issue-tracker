@@ -4,10 +4,10 @@ import styles from "./newIssuseStyles.module.css"
 import IssueStatusBadge from "../component/IssueStatusBadge"
 import delay from "delay"
 import NewIssueButton from "./NewIssueButton"
+import Link from "next/link"
 
 const IssuesPage = async () => {
     const issues = await prisma.issues.findMany()
-    console.log(issues)
     await delay(2000) // Simulate a delay for loading state
 
     return (
@@ -25,7 +25,9 @@ const IssuesPage = async () => {
                     {issues.map((issue) => (
                         <Table.Row key={issue.id}>
                             <Table.Cell >
-                                {issue.title}
+                                <Link href={`/issues/${issue.id}`}>
+                                    {issue.title}
+                                </Link>
                                 <div className={styles.mdInfoDisplay}><IssueStatusBadge status={issue.status} /></div>
                             </Table.Cell>
                             <Table.Cell className={styles.tableCellDisplay}><IssueStatusBadge status={issue.status} /></Table.Cell>
