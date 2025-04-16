@@ -4,7 +4,7 @@ import styles from "./newIssuseStyles.module.css"
 import IssueStatusBadge from "../component/IssueStatusBadge"
 import delay from "delay"
 import NewIssueButton from "./NewIssueButton"
-import Link from "next/link"
+import Link from "@/app/component/Link"
 
 const IssuesPage = async () => {
     const issues = await prisma.issues.findMany()
@@ -13,7 +13,7 @@ const IssuesPage = async () => {
     return (
         <div>
             <NewIssueButton />
-            <Table.Root variant="surface" className="bg-yellow-200">
+            <Table.Root variant="surface" >
                 <Table.Header>
                     <Table.Row>
                         <Table.ColumnHeaderCell>Issues</Table.ColumnHeaderCell>
