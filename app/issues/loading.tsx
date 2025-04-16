@@ -1,6 +1,6 @@
 import { Table } from '@radix-ui/themes'
 import { Skeleton } from '@/app/components'
-import styles from './newIssuseStyles.module.css'
+import styles from './Issue.module.css'
 import NewIssueButton from './NewIssueButton'
 
 const loading = () => {

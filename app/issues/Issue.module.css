@@ -1,3 +1,11 @@
+.textDiv {
+    width: calc(100% - 2rem);
+    position: relative;
+    max-width: min(50rem, 100%);
+}
+.spaceBetween {
+    margin-bottom: 1rem;
+}
 @media (width >= 48rem) {
     .tableCellDisplay {
         display: table-cell;

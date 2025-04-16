@@ -1,6 +1,5 @@
-import prisma from "@/prisma/client"
 import { Box, Grid } from "@radix-ui/themes"
-import { notFound } from "next/navigation"
+import FindIssue from "../_utils/FindIssue"
 import EditIssueButton from "./EditIssueButton"
 import IssueDetail from "./IssueDetail"
 
@@ -10,13 +9,7 @@ interface Props {
 
 const IssueDetailPage = async ({ params }: Props) => {
     const { id } = await params
-
-    const issue = await prisma.issues.findUnique({
-        where: { id: parseInt(id) }
-    })
-    if (!issue)
-        notFound()
-
+    const issue = await FindIssue(id)
     return (
         <Grid columns={{ initial: "1", md: "2" }} gap={{ initial: "5", md: "0" }} >
             <Box>
