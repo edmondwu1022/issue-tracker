@@ -1,17 +1,18 @@
 "use client"
-import styles from "./newIssue.module.css"
-import { Button, Callout, Text, TextArea, TextField, } from "@radix-ui/themes"
-import SimpleMDE from "react-simplemde-editor"
-import "easymde/dist/easymde.min.css"
-import { Controller, FormState, useForm } from "react-hook-form"
-import { useRouter } from "next/navigation"
-import axios from "axios"
-import { useState } from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { createIssueSchema } from "@/app/validationSchema"
-import { z } from "zod"
 import ErrorMessage from "@/app/component/ErrorMessage"
 import Spinner from "@/app/component/Spinner"
+import { createIssueSchema } from "@/app/validationSchema"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Button, Callout, TextField } from "@radix-ui/themes"
+import axios from "axios"
+import "easymde/dist/easymde.min.css"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { Controller, useForm } from "react-hook-form"
+import SimpleMDE from "react-simplemde-editor"
+import { z } from "zod"
+import styles from "./newIssue.module.css"
+
 
 type IssueForm = z.infer<typeof createIssueSchema>
 
@@ -31,6 +32,7 @@ const NewIssuesPage = () => {
             setError("An unexpected error occurred")
         }
     }
+
     return (
         <div className={styles.textDiv}>
             {error &&
