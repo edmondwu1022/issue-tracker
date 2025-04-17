@@ -4,6 +4,8 @@ import { Table } from "@radix-ui/themes"
 import NewIssueButton from "./NewIssueButton"
 import styles from "./Issue.module.css"
 
+export const dynamic = "force-dynamic"
+
 const IssuesPage = async () => {
     const issues = await prisma.issues.findMany()
 
