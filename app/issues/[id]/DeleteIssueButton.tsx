@@ -1,4 +1,5 @@
 "use client"
+import { Spinner } from "@/app/components";
 import { AlertDialog, Box, Button, Container, Flex } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -8,14 +9,17 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 const DeleteIssueButton = ({ issueID }: { issueID: Number }) => {
     const router = useRouter()
     const [error, setError] = useState(false)
+    const [isDelete, setIsDelete] = useState(false)
 
-    const onComfirmButtonClick = () => {
+    const onComfirmButtonClick = async () => {
         try {
-            axios.delete(`/api/issues/${issueID}`)
+            setIsDelete(true)
+            await axios.delete(`/api/issues/${issueID}`)
             router.push("/issues")
             router.refresh()
         } catch (error) {
             console.error(error)
+            setIsDelete(false)
             setError(true)
         }
     }
@@ -24,7 +28,8 @@ const DeleteIssueButton = ({ issueID }: { issueID: Number }) => {
         <>
             <AlertDialog.Root>
                 <AlertDialog.Trigger>
-                    <Button color="red"><RiDeleteBin6Line />Delete Button</Button>
+                    <Button color="red" disabled={isDelete}>
+                        {isDelete ? <Spinner /> : <RiDeleteBin6Line />}Delete Button</Button>
                 </AlertDialog.Trigger>
                 <AlertDialog.Content>
                     <AlertDialog.Title>Comformation</AlertDialog.Title>
