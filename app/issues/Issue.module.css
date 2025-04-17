@@ -1,5 +1,7 @@
 .textDiv {
-    max-width: min(50rem, 100%);
+    width: 100%;
+    max-width: auto;
+    /* max-width: min(50rem, 100%); */
 }
 .spaceBetween {
     margin-bottom: 1rem;

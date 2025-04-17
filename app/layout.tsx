@@ -3,7 +3,7 @@ import "./theme-config.css"
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Theme } from '@radix-ui/themes'
+import { Container, Theme } from '@radix-ui/themes'
 import NavBar from './NavBar'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
@@ -20,7 +20,9 @@ export default function RootLayout({ children, }: { children: React.ReactNode })
         <Theme accentColor="violet" >
           <NavBar />
           <main>
-            {children}
+            <Container size={{ initial: "1", sm: "2", md: "3" }}  >
+              {children}
+            </Container>
           </main>
         </Theme>
       </body>
