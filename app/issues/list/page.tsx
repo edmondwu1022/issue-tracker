@@ -2,7 +2,7 @@ import { IssueStatusBadge, Link } from "@/app/components"
 import prisma from "@/prisma/client"
 import { Table } from "@radix-ui/themes"
 import NewIssueButton from "./NewIssueButton"
-import styles from "./Issue.module.css"
+import styles from "../Issue.module.css"
 
 export const dynamic = "force-dynamic"
 
