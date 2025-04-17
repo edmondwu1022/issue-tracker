@@ -1,8 +1,8 @@
-import IssueForm from "../_components/IssueForm"
+import IssueFormPreload from '../_components/IssueFormPreload'
 
 const NewIssuePage = () => {
     return (
-        <IssueForm />
+        <IssueFormPreload issue={undefined} />
     )
 }
 export default NewIssuePage
