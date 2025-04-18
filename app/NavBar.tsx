@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AiFillBug } from "react-icons/ai";
+import { Skeleton } from "./components";
 
 const NavBar = () => {
     return (
@@ -49,7 +50,7 @@ const NavLink = () => {
 const AuthStatus = () => {
     const { status, data } = useSession()
 
-    if (status === "loading") return null
+    if (status === "loading") return <Skeleton width="1.7rem" height="1.7rem" circle />
 
     if (status === "unauthenticated")
         return <Link href={"/api/auth/signin"} className="nav-link">Log in</Link>
@@ -61,6 +62,7 @@ const AuthStatus = () => {
                         src={data!.user!.image!}
                         fallback="?"
                         size={"2"}
+                        radius="full"
                         className="cursor-pointer hover:opacity-80"
                     />
                 </DropdownMenu.Trigger>
