@@ -4,8 +4,11 @@ import Link from "next/link"
 import { AiFillBug } from "react-icons/ai";
 import { usePathname } from "next/navigation";
 import classNames from "classnames";
+import { useSession } from "next-auth/react";
+import { Box } from "@radix-ui/themes";
 
 const NavBar = () => {
+    const { status, data } = useSession()
     const lists = [
         { label: "Dashboard", href: "/" },
         { label: "Issues", href: "/issues/list" }
@@ -15,18 +18,24 @@ const NavBar = () => {
     return (
         <nav className="flex flex-row gap-10 border border-zinc-200 px-10 py-4 mb-4 items-center ">
             <Link href="/" ><AiFillBug /></Link>
-            <div className="flex gap-5">
+            <ul className="flex gap-5">
                 {lists.map(list =>
-                    <Link
-                        key={list.href}
-                        href={list.href}
-                        className={classNames({
-                            "text-zinc-500": pathname !== list.href,
-                            "text-zinc-900": pathname === list.href,
-                            "hover:text-zinc-800 transition-colors": true
-                        })}
-                    >{list.label}</Link>)}
-            </div>
+                    <li key={list.href}>
+                        <Link
+                            href={list.href}
+                            className={classNames({
+                                "text-zinc-500": pathname !== list.href,
+                                "text-zinc-900": pathname === list.href,
+                                "hover:text-zinc-800 transition-colors": true
+                            })}
+                        >{list.label}</Link>
+                    </li>
+                )}
+            </ul>
+            <Box>
+                {status === "authenticated" && <Link href={"/api/auth/signout"}>Log out</Link>}
+                {status === "unauthenticated" && <Link href={"/api/auth/signin"}>Log in</Link>}
+            </Box>
         </nav >
     )
 }
