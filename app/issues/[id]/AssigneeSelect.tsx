@@ -1,9 +1,9 @@
 "use client"
+import { Skeleton } from "@/app/components"
 import { Issues, User } from "@prisma/client"
 import { Select } from "@radix-ui/themes"
-import axios from "axios"
 import { useQuery } from "@tanstack/react-query"
-import { Skeleton } from "@/app/components"
+import axios from "axios"
 
 const AssigneeSelect = ({ issue }: { issue: Issues }) => {
     const { data: users, error, isLoading } = useQuery<User[]>({
@@ -17,6 +17,7 @@ const AssigneeSelect = ({ issue }: { issue: Issues }) => {
         if (userId === " ")
             userId = null
         axios.patch(`/api/issues/${issue.id}`, { assigneeToUserId: userId || null })
+            .catch(err => { console.log(err) })
     }
 
     if (isLoading) return <Skeleton />

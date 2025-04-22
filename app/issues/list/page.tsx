@@ -1,8 +1,9 @@
 import { IssueStatusBadge, Link } from "@/app/components"
 import prisma from "@/prisma/client"
-import { Table } from "@radix-ui/themes"
+import { Flex, Table } from "@radix-ui/themes"
 import NewIssueButton from "./NewIssueButton"
 import styles from "../Issue.module.css"
+import IssueStatusFilter from "./IssueStatusFilter"
 
 export const dynamic = "force-dynamic"
 
@@ -11,7 +12,10 @@ const IssuesPage = async () => {
 
     return (
         <div>
-            <NewIssueButton />
+            <Flex justify={"between"}>
+                <IssueStatusFilter />
+                <NewIssueButton />
+            </Flex>
             <Table.Root variant="surface" >
                 <Table.Header>
                     <Table.Row>
