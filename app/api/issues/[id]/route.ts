@@ -5,9 +5,9 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const PATCH = async (req: NextRequest, { params }: { params: Promise<{ id: string }> }) => {
-    // const session = await getServerSession(authOption)
-    // if (!session)
-    //     return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
+    const session = await getServerSession(authOption)
+    if (!session)
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
 
     const body = await req.json()
     const validate = patchIssueSchema.safeParse(body)
