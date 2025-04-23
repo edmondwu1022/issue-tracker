@@ -8,8 +8,6 @@ import { Status, Issues } from "@prisma/client"
 import NextLink from "next/link"
 import { GoArrowDown } from "react-icons/go";
 
-
-
 export const dynamic = "force-dynamic"
 
 interface Props {
@@ -25,10 +23,12 @@ const columns: { label: string, value: keyof Issues, classname?: string }[] = [
     { label: "CreateAt", value: "createdAt", classname: styles.tableCellDisplay }
 ]
 
-
 const IssuesPage = async ({ searchParams }: Props) => {
     const search = await searchParams
     const statues = Object.values(Status)
+
+
+
     const status = statues.includes(search.status) ? search.status : undefined
 
     // map回傳 Array
