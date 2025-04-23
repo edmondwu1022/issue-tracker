@@ -5,16 +5,33 @@ import NewIssueButton from "./NewIssueButton"
 import styles from "../Issue.module.css"
 import IssueStatusFilter from "./IssueStatusFilter"
 import { Status, Issues } from "@prisma/client"
+import NextLink from "next/link"
+import { GoArrowDown } from "react-icons/go";
+
+
 
 export const dynamic = "force-dynamic"
 
-const IssuesPage = async ({ searchParams }: { searchParams: Promise<{ status: Status }> }) => {
-    const { status } = await searchParams
+interface Props {
+    searchParams: Promise<{
+        status: Status,
+        orderBy: keyof Issues
+    }>
+}
+
+const columns: { label: string, value: keyof Issues, classname?: string }[] = [
+    { label: "Issues", value: "title" },
+    { label: "Status", value: "status", classname: styles.tableCellDisplay },
+    { label: "CreateAt", value: "createdAt", classname: styles.tableCellDisplay }
+]
+
+const IssuesPage = async ({ searchParams }: Props) => {
+    const search = await searchParams
     const statues = Object.values(Status)
-    const searchStatus = statues.includes(status) ? status : undefined
+    const status = statues.includes(search.status) ? search.status : undefined
 
     const issues = await prisma.issues.findMany({
-        where: { status: searchStatus }
+        where: { status }
     })
     return (
         <div>
@@ -25,9 +42,20 @@ const IssuesPage = async ({ searchParams }: { searchParams: Promise<{ status: St
             <Table.Root variant="surface" >
                 <Table.Header>
                     <Table.Row>
-                        <Table.ColumnHeaderCell>Issues</Table.ColumnHeaderCell>
-                        <Table.ColumnHeaderCell className={styles.tableCellDisplay}>Status</Table.ColumnHeaderCell>
-                        <Table.ColumnHeaderCell className={styles.tableCellDisplay}>CreateAt</Table.ColumnHeaderCell>
+                        {columns.map((column) =>
+                            <Table.ColumnHeaderCell key={column.value} className={column.classname}>
+                                <NextLink href={{
+                                    query: {
+                                        ...search,
+                                        orderBy: column.value,
+                                    }
+                                }}>{column.label}</NextLink>
+                                {search.orderBy === column.value && (
+                                    <GoArrowDown className="inline ml-1" />
+                                )}
+                            </Table.ColumnHeaderCell>
+                        )
+                        }
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>

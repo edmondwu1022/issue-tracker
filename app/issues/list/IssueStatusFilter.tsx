@@ -14,7 +14,9 @@ const statuses: { label: string, value?: Status }[] = [
 const IssueStatusFilter = () => {
     const router = useRouter()
 
-    const onChange = (value: string) => {
+    const onChange = (value: string | null) => {
+        if (value === " ")
+            value = null
         const query = value ? `?status=${value}` : ""
         router.push(`/issues/list` + query)
     }
