@@ -4,12 +4,18 @@ import { Flex, Table } from "@radix-ui/themes"
 import NewIssueButton from "./NewIssueButton"
 import styles from "../Issue.module.css"
 import IssueStatusFilter from "./IssueStatusFilter"
+import { Status, Issues } from "@prisma/client"
 
 export const dynamic = "force-dynamic"
 
-const IssuesPage = async () => {
-    const issues = await prisma.issues.findMany()
+const IssuesPage = async ({ searchParams }: { searchParams: Promise<{ status: Status }> }) => {
+    const { status } = await searchParams
+    const statues = Object.values(Status)
+    const searchStatus = statues.includes(status) ? status : undefined
 
+    const issues = await prisma.issues.findMany({
+        where: { status: searchStatus }
+    })
     return (
         <div>
             <Flex justify={"between"}>
