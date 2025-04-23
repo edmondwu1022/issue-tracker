@@ -25,13 +25,20 @@ const columns: { label: string, value: keyof Issues, classname?: string }[] = [
     { label: "CreateAt", value: "createdAt", classname: styles.tableCellDisplay }
 ]
 
+
 const IssuesPage = async ({ searchParams }: Props) => {
     const search = await searchParams
     const statues = Object.values(Status)
     const status = statues.includes(search.status) ? search.status : undefined
 
+    // map回傳 Array
+    const orderBy = columns.map(column => column.value).includes(search.orderBy) ? {
+        [search.orderBy]: "asc"
+    } : undefined
+
     const issues = await prisma.issues.findMany({
-        where: { status }
+        where: { status },
+        orderBy
     })
     return (
         <div>
