@@ -3,7 +3,6 @@ import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes"
 import { IssueStatusBadge } from "./components"
 import Link from "next/link"
 
-
 const LatestIssues = async () => {
     const isssues = await prisma.issues.findMany(
         {
@@ -16,7 +15,6 @@ const LatestIssues = async () => {
             }
         }
     )
-
 
     return (
         <Card>
