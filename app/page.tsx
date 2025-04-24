@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Pagination from './components/Pagination'
+import LatestIssues from './LatestIssues'
 
 interface Props {
   searchParams: Promise<{
@@ -7,11 +8,8 @@ interface Props {
   }>
 }
 
-export default async function Home({ searchParams }: Props) {
-  const { page } = await searchParams
-  const pageNumber = (page) ? parseInt(page) : 1
-
+export default async function Home() {
   return (
-    <Pagination currentPage={pageNumber} pageSize={10} itemCount={100} />
+    <LatestIssues />
   )
 }
