@@ -7,13 +7,15 @@ import IssueStatusFilter from "./IssueStatusFilter"
 import { Status, Issues } from "@prisma/client"
 import NextLink from "next/link"
 import { GoArrowDown } from "react-icons/go";
+import Pagination from "@/app/components/Pagination"
 
 export const dynamic = "force-dynamic"
 
 interface Props {
     searchParams: Promise<{
         status: Status,
-        orderBy: keyof Issues
+        orderBy: keyof Issues,
+        page: string
     }>
 }
 
@@ -26,20 +28,27 @@ const columns: { label: string, value: keyof Issues, classname?: string }[] = [
 const IssuesPage = async ({ searchParams }: Props) => {
     const search = await searchParams
     const statues = Object.values(Status)
-
-
-
     const status = statues.includes(search.status) ? search.status : undefined
 
+    // #region pagination parameters
+    const page = parseInt(search.page) || 1
+    const pageSize = 10
+    //#endregion
+
+    // #region Prisma options
+    const where = { status }
     // map回傳 Array
     const orderBy = columns.map(column => column.value).includes(search.orderBy) ? {
         [search.orderBy]: "asc"
     } : undefined
+    const skip = (page - 1) * pageSize
+    const take = pageSize
+    //#endregion
 
-    const issues = await prisma.issues.findMany({
-        where: { status },
-        orderBy
-    })
+    const issues = await prisma.issues.findMany({ where, orderBy, skip, take })
+    // pageCount
+    const counts = await prisma.issues.count({ where })
+
     return (
         <div>
             <Flex justify={"between"}>
@@ -80,6 +89,7 @@ const IssuesPage = async ({ searchParams }: Props) => {
                     ))}
                 </Table.Body>
             </Table.Root >
+            <Pagination currentPage={page} itemCount={counts} pageSize={pageSize} />
         </div >
 
     )
