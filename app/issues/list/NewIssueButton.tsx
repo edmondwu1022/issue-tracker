@@ -3,7 +3,7 @@ import Link from "next/link"
 
 const NewIssueButton = () => {
     return (
-        <div className="mb-4">
+        <div >
             <Button><Link href="/issues/new">New</Link></Button>
         </div>
     )
