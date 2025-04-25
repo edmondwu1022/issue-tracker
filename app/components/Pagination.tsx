@@ -15,10 +15,8 @@ const Pagination = ({ currentPage, pageSize, itemCount }: Props) => {
     const searchParams = useSearchParams()
 
     const onButtonClick = (page: number) => {
-        if (page < 1)
-            page = 1
-        else if (page > pageCount)
-            page = pageCount
+        page = Math.max(1, Math.min(page, pageCount))
+
         const params = new URLSearchParams(searchParams)
         params.set("page", page.toString())
         router.push(`?${params.toString()}`)

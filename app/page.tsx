@@ -5,6 +5,7 @@ import IssueSummary from './IssueSummary'
 import prisma from '@/prisma/client'
 import IssueChart from './IssueChart'
 import { Flex, Grid } from '@radix-ui/themes'
+import { Metadata } from 'next'
 
 interface Props {
   searchParams: Promise<{
@@ -34,4 +35,9 @@ export default async function Home() {
       <LatestIssues />
     </Grid>
   )
+}
+
+export const metadata: Metadata = {
+  title: "Issue Tracker - Dashboard",
+  description: "Issue Tracker - Dashboard",
 }

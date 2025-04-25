@@ -47,4 +47,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
         </Flex>
     )
 }
+
+export const metadata = {
+    title: "Issue Tracker - List",
+    description: "Issue Tracker - Issues list",
+}
+
 export default IssuesPage
